@@ -14,7 +14,6 @@
 #include "cursor.h"
 #include "misc.h"
 #include "pager.h"
-#include "status.h"
 #include "binding.h"
 #include "event.h"
 #include "settings.h"
@@ -39,7 +38,6 @@ void ResizeController(int wasDestroyed)
    }
    JXUngrabPointer(display, CurrentTime);
    JXUngrabKeyboard(display, CurrentTime);
-   DestroyResizeWindow();
    shouldStopResize = 1;
 }
 
@@ -162,9 +160,6 @@ void ResizeClient(ClientNode *np, MouseContextType context,
    startx += np->x - west;
    starty += np->y - north;
 
-   CreateResizeWindow(np);
-   UpdateResizeWindow(np, gwidth, gheight);
-
    if(!(GetMouseMask() & (Button1Mask | Button3Mask))) {
       StopResize(np);
       return;
@@ -203,8 +198,6 @@ void ResizeClient(ClientNode *np, MouseContextType context,
          gheight = (np->height - np->baseHeight) / np->yinc;
 
          if(lastgheight != gheight || lastgwidth != gwidth) {
-
-            UpdateResizeWindow(np, gwidth, gheight);
 
             if(settings.resizeMode == RESIZE_OUTLINE) {
                ClearOutline();
@@ -280,9 +273,6 @@ void ResizeClientKeyboard(ClientNode *np, MouseContextType context)
    gheight = (np->height - np->baseHeight) / np->yinc;
 
    GetBorderSize(&np->state, &north, &south, &east, &west);
-
-   CreateResizeWindow(np);
-   UpdateResizeWindow(np, gwidth, gheight);
 
    if(context & MC_BORDER_N) {
       starty = np->y - north;
@@ -387,8 +377,6 @@ void ResizeClientKeyboard(ClientNode *np, MouseContextType context)
 
       if(lastgwidth != gwidth || lastgheight != gheight) {
 
-         UpdateResizeWindow(np, gwidth, gheight);
-
          if(settings.resizeMode == RESIZE_OUTLINE) {
             ClearOutline();
             if(np->state.status & STAT_SHADED) {
@@ -436,8 +424,6 @@ void StopResize(ClientNode *np)
 
    JXUngrabPointer(display, CurrentTime);
    JXUngrabKeyboard(display, CurrentTime);
-
-   DestroyResizeWindow();
 
    ResetBorder(np);
    SendConfigureEvent(np);
