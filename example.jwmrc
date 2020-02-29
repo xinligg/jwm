@@ -1,224 +1,232 @@
 <?xml version="1.0"?>
+
 <JWM>
 
-    <!-- The root menu. -->
-    <RootMenu onroot="12">
+   <!-- The root menu, if this is undefined you will not get a menu. -->
+   <!-- Additional RootMenu attributes: onroot, labeled, label -->
+   <RootMenu height="16" onroot="3">
         <Program icon="terminal.png" label="Terminal">xterm</Program>
-        <Menu icon="folder.png" label="Applications">
-            <Program icon="music.png" label="Audacious">audacious</Program>
-            <Program icon="calculator.png" label="Calculator">xcalc</Program>
-            <Program icon="gimp.png" label="Gimp">gimp</Program>
-            <Program icon="chat.png" label="Pidgin">pidgin</Program>
-            <Program icon="www.png" label="Firefox">firefox</Program>
-            <Program icon="editor.png" label="XEdit">xedit</Program>
-        </Menu>
-        <Menu icon="folder.png" label="Utilities">
-            <Program icon="font.png" label="Fonts">xfontsel</Program>
-            <Program icon="window.png" label="Window Properties">
-                xprop | xmessage -file -
-            </Program>
-            <Program icon="window.png" label="Window Information">
-                xwininfo | xmessage -file -
-            </Program>
-        </Menu>
         <Separator/>
         <Program icon="lock.png" label="Lock">
-            xlock -mode blank
+            xtrlock -b
         </Program>
         <Separator/>
-        <Restart label="Restart" icon="restart.png"/>
-        <Exit label="Exit" confirm="true" icon="quit.png"/>
-    </RootMenu>
+        <Program label=" 虚拟终端">sakura</Program>
+        <Program label=" 文件管理器">pcmanfm</Program>
+        <Program label=" 文本编辑器">leafpad</Program>
+        <Program label=" 网络浏览器">firefox</Program>
+        <Program label=" 虚拟机软件">virt-manager</Program>
+        <Program label=" 图像处理软件">gimp</Program>
 
-    <!-- Options for program groups. -->
-    <Group>
-        <Option>tiled</Option>
-        <Option>aerosnap</Option>
-    </Group>
-    <Group>
-        <Class>Pidgin</Class>
-        <Option>sticky</Option>
-    </Group>
-    <Group>
-        <Name>xterm</Name>
-        <Option>vmax</Option>
-    </Group>
-    <Group>
-        <Name>xclock</Name>
-        <Option>drag</Option>
-        <Option>notitle</Option>
-    </Group>
+      <Separator/>
+	<Restart label="重启配置" icon="restart.png"/>
+        <Exit label="立即退出" confirm="true" icon="quit.png"/>
+	<Program label="重启">systemctl reboot</Program>
+	<Program label="关机">systemctl poweroff</Program>
+   </RootMenu>
 
-    <!-- Tray at the bottom. -->
-    <Tray x="0" y="-1" autohide="off">
+   <Group>
+     <Class>BOffice</Class>
+     <Option>nolist</Option>
+   </Group>
 
-        <TrayButton icon="jwm-blue">root:1</TrayButton>
-        <Spacer width="2"/>
-        <TrayButton label="_">showdesktop</TrayButton>
-        <Spacer width="2"/>
+   <!-- Additional tray attributes: autohide, width, border, layer, layout -->
+   <Tray x="0" y="-1" height="48">
 
-        <Pager labeled="true"/>
+      <!-- Additional TrayButton attribute: label -->
+      <TrayButton icon="StartWLH.png">root:3</TrayButton>
 
-        <TaskList maxwidth="256"/>
+      <!-- Additional Pager attributes; width, height -->
+      <Pager/>
 
-        <Dock/>
-        <Clock format="%H:%M"><Button mask="123">exec:xclock</Button></Clock>
+      <!-- Additional TaskList attribute: maxwidth -->
+      <TaskList maxwidth="256"/>
 
-    </Tray>
+      <Dock/>
 
-    <!-- Visual Styles -->
-    <WindowStyle>
-        <Font>Sans-9:bold</Font>
-        <Width>4</Width>
-        <Height>21</Height>
-        <Corner>3</Corner>
-        <Foreground>#FFFFFF</Foreground>
-        <Background>#555555</Background>
-        <Outline>#000000</Outline>
-        <Opacity>0.5</Opacity>
-        <Active>
-            <Foreground>#FFFFFF</Foreground>
-            <Background>#0077CC</Background>
-            <Outline>#000000</Outline>
-            <Opacity>1.0</Opacity>
-        </Active>
-    </WindowStyle>
-    <TrayStyle group="true" list="all">
-        <Font>Sans-9</Font>
-        <Background>#333333</Background>
-        <Foreground>#FFFFFF</Foreground>
-        <Outline>#000000</Outline>
-        <Opacity>0.75</Opacity>
-    </TrayStyle>
-    <TaskListStyle>
-      <Font>Sans-9</Font>
+      <!-- Additional Swallow attribute: height -->
+      <Swallow name="xload" width="52">
+         xload -nolabel -bg black -fg green -update 2
+      </Swallow>
+
+      <Clock></Clock>
+
+      <TrayButton icon="showdesktop.png">showdesktop</TrayButton>
+
+   </Tray>
+
+   <!-- Visual Styles -->
+
+   <WindowStyle>
+      <Font>Sans-13</Font>
+      <Width>4</Width>
+      <Height>32</Height>
+
       <Active>
-        <Foreground>#FFFFFF</Foreground>
-        <Background>#555555</Background>
+         <Text>black</Text>
+	 <Title>#d0ced0:#f0eef0</Title>
+         <Corner>lightgray</Corner>
+         <Foreground>#222222</Foreground>
+ 	 <Background>#ffffff:#ffffff</Background>
+	 <Outline>#808080</Outline>
       </Active>
-      <Foreground>#FFFFFF</Foreground>
-      <Background>#333333</Background>
-    </TaskListStyle>
-    <PagerStyle>
-        <Outline>#000000</Outline>
-        <Foreground>#555555</Foreground>
-        <Background>#333333</Background>
-        <Text>#FFFFFF</Text>
-        <Active>
-            <Foreground>#0077CC</Foreground>
-            <Background>#004488</Background>
-        </Active>
-    </PagerStyle>
-    <MenuStyle>
-        <Font>Sans-9</Font>
-        <Foreground>#FFFFFF</Foreground>
-        <Background>#333333</Background>
-        <Outline>#000000</Outline>
-        <Active>
-            <Foreground>#FFFFFF</Foreground>
-            <Background>#0077CC</Background>
-        </Active>
-        <Opacity>0.85</Opacity>
-    </MenuStyle>
-    <PopupStyle>
-        <Font>Sans-9</Font>
-        <Foreground>#000000</Foreground>
-        <Background>#999999</Background>
-    </PopupStyle>
 
-    <!-- Path where icons can be found.
-         IconPath can be listed multiple times to allow searching
-         for icons in multiple paths.
-      -->
-    <IconPath>
-        /usr/share/icons/wm-icons/32x32-aquafusion
-    </IconPath>
-    <IconPath>
-        /usr/local/share/jwm
-    </IconPath>
+      <Inactive>
+         <Text>#8f8f8f</Text>
+         <Title>#f0eef0:#eeeeee</Title>
+         <Corner>lightgray</Corner>
+         <Outline>gray90</Outline>
+      </Inactive>
 
-    <!-- Virtual Desktops -->
-    <!-- Desktop tags can be contained within Desktops for desktop names. -->
-    <Desktops width="4" height="1">
-        <!-- Default background. Note that a Background tag can be
-              contained within a Desktop tag to give a specific background
-              for that desktop.
-         -->
-        <Background type="solid">#111111</Background>
-    </Desktops>
+   </WindowStyle>
 
-    <!-- Double click speed (in milliseconds) -->
-    <DoubleClickSpeed>400</DoubleClickSpeed>
+   <TaskListStyle>
+	<Font>Sans-14</Font>
+	<ActiveForeground>black</ActiveForeground>
+	<ActiveBackground>gray90:gray70</ActiveBackground>
+	<Foreground>#6f6f6f</Foreground>
+	<Background>#000000:#222222</Background>
+   </TaskListStyle>
 
-    <!-- Double click delta (in pixels) -->
-    <DoubleClickDelta>2</DoubleClickDelta>
+   <!-- Additional TrayStyle attribute: insert -->
+   <TrayStyle>
+	<Font>Sans-14:bold</Font>
+	<Foreground>lightgray</Foreground>
+	<Background>#000000</Background>
+   </TrayStyle>
 
-    <!-- The focus model (sloppy or click) -->
-    <FocusModel>sloppy</FocusModel>
+   <PagerStyle>
+      <Outline>black</Outline>
+      <Foreground>gray90</Foreground>
+      <Background>#808488</Background>
+      <ActiveForeground>#70849d</ActiveForeground>
+      <ActiveBackground>#2e3a67</ActiveBackground>
+   </PagerStyle>
 
-    <!-- The snap mode (none, screen, or border) -->
-    <SnapMode distance="10">border</SnapMode>
+   <MenuStyle>
+	<Font>Sans-14</Font>
+	<Foreground>#f0eef0</Foreground>
+	<Background>black</Background>
+	<ActiveForeground>white</ActiveForeground>
+	<ActiveBackground>#70849d:#2e3a67</ActiveBackground>
+   </MenuStyle>
 
-    <!-- The move mode (outline or opaque) -->
-    <MoveMode>opaque</MoveMode>
+   <PopupStyle>
+	<Font>Sans-9</Font>
+	<Outline>black</Outline>
+	<Foreground>lightgray</Foreground>
+	<Background>black</Background>
+   </PopupStyle>
 
-    <!-- The resize mode (outline or opaque) -->
-    <ResizeMode>opaque</ResizeMode>
 
-    <!-- Key bindings -->
-    <Key key="Up">up</Key>
-    <Key key="Down">down</Key>
-    <Key key="Right">right</Key>
-    <Key key="Left">left</Key>
-    <Key key="h">left</Key>
-    <Key key="j">down</Key>
-    <Key key="k">up</Key>
-    <Key key="l">right</Key>
-    <Key key="Return">select</Key>
-    <Key key="Escape">escape</Key>
+   <IconPath>/usr/share/icons/hicolor/48x48/actions</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/animations</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/apps</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/categories</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/devices</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/emblems</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/emotes</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/filesystems</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/intl</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/mimetypes</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/places</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/status</IconPath>
+   <IconPath>/usr/share/icons/hicolor/48x48/stock</IconPath>
+   <IconPath>/usr/share/pixmaps</IconPath>
+   <IconPath>
+     $HOME/.icons
+   </IconPath>
 
-    <Key mask="A" key="Tab">nextstacked</Key>
-    <Key mask="A" key="F4">close</Key>
-    <Key mask="A" key="#">desktop#</Key>
-    <Key mask="A" key="F1">root:1</Key>
-    <Key mask="A" key="F2">window</Key>
-    <Key mask="A" key="F10">maximize</Key>
-    <Key mask="A" key="Right">rdesktop</Key>
-    <Key mask="A" key="Left">ldesktop</Key>
-    <Key mask="A" key="Up">udesktop</Key>
-    <Key mask="A" key="Down">ddesktop</Key>
+   <!-- Virtual Desktops -->
+   <!-- Desktop tags can be contained within Desktops for desktop names. -->
+   <Desktops count="2" width="2" height="1">
 
-    <!-- Mouse bindings -->
-    <Mouse context="root" button="4">ldesktop</Mouse>
-    <Mouse context="root" button="5">rdesktop</Mouse>
+      <!-- Default background. Note that a Background tag can be
+           contained within a Desktop tag to give a specific background
+           for that desktop.
+	   "command", "gradient", "image", "scale", "solid", "tile"
+       -->
+      <Background type="image">/usr/share/backgrounds/SuperRed.jpg</Background>
 
-    <Mouse context="title" button="1">move</Mouse>
-    <Mouse context="title" button="2">move</Mouse>
-    <Mouse context="title" button="3">window</Mouse>
-    <Mouse context="title" button="4">shade</Mouse>
-    <Mouse context="title" button="5">shade</Mouse>
-    <Mouse context="title" button="11">maximize</Mouse>
+   </Desktops>
 
-    <Mouse context="icon" button="1">window</Mouse>
-    <Mouse context="icon" button="2">move</Mouse>
-    <Mouse context="icon" button="3">window</Mouse>
-    <Mouse context="icon" button="4">shade</Mouse>
-    <Mouse context="icon" button="5">shade</Mouse>
+   <!-- Double click speed (in milliseconds) -->
+   <DoubleClickSpeed>400</DoubleClickSpeed>
 
-    <Mouse context="border" button="1">resize</Mouse>
-    <Mouse context="border" button="2">move</Mouse>
-    <Mouse context="border" button="3">window</Mouse>
+   <!-- Double click delta (in pixels) -->
+   <DoubleClickDelta>2</DoubleClickDelta>
 
-    <Mouse context="close" button="-1">close</Mouse>
-    <Mouse context="close" button="2">move</Mouse>
-    <Mouse context="close" button="-3">close</Mouse>
+   <!-- The focus model (sloppy or click) -->
+   <FocusModel>click</FocusModel>
 
-    <Mouse context="maximize" button="-1">maximize</Mouse>
-    <Mouse context="maximize" button="-2">maxv</Mouse>
-    <Mouse context="maximize" button="-3">maxh</Mouse>
+   <!-- The snap mode (none, screen, or border) -->
+   <SnapMode distance="18">border</SnapMode>
 
-    <Mouse context="minimize" button="-1">minimize</Mouse>
-    <Mouse context="minimize" button="2">move</Mouse>
-    <Mouse context="minimize" button="-3">shade</Mouse>
+   <!-- The move mode (outline or opaque) -->
+   <MoveMode>opaque</MoveMode>
+
+   <!-- The resize mode (outline or opaque) -->
+   <ResizeMode>opaque</ResizeMode>
+
+   <!-- Key bindings -->
+   <Key key="Up">up</Key>
+   <Key key="Down">down</Key>
+   <Key key="Right">right</Key>
+   <Key key="Left">left</Key>
+   <Key key="h">left</Key>
+   <Key key="j">down</Key>
+   <Key key="k">up</Key>
+   <Key key="l">right</Key>
+   <Key key="Return">select</Key>
+   <Key key="Escape">escape</Key>
+
+   <Key mask="A" key="Tab">nextstacked</Key>
+   <Key mask="A" key="F4">close</Key>
+   <!--   <Key mask="A" key="#">desktop#</Key> -->
+   <Key mask="A" key="F1">root:3</Key>
+   <Key mask="A" key="F2">exec:fbrun</Key>
+   <Key mask="A" key="z">exec:firefox</Key>
+   <Key mask="C" key="l">exec:xtrlock -b</Key>
+   <Key mask="A" key="F3">maximize</Key>
+   <Key mask="A" key="F5">minimize</Key>
+   <Key mask="A" key="r">restart</Key>
+
+   <!-- Mouse bindings -->
+   <Mouse context="root" button="4">ldesktop</Mouse>
+   <Mouse context="root" button="5">rdesktop</Mouse>
+
+   <Mouse context="title" button="1">move</Mouse>
+   <Mouse context="title" button="2">move</Mouse>
+   <Mouse context="title" button="3">window</Mouse>
+   <Mouse context="title" button="4">shade</Mouse>
+   <Mouse context="title" button="5">shade</Mouse>
+   <Mouse context="title" button="11">maximize</Mouse>
+
+   <Mouse context="icon" button="1">window</Mouse>
+   <Mouse context="icon" button="2">move</Mouse>
+   <Mouse context="icon" button="3">window</Mouse>
+   <Mouse context="icon" button="4">shade</Mouse>
+   <Mouse context="icon" button="5">shade</Mouse>
+
+   <Mouse context="border" button="1">resize</Mouse>
+   <Mouse context="border" button="2">move</Mouse>
+   <Mouse context="border" button="3">window</Mouse>
+
+   <Mouse context="close" button="-1">close</Mouse>
+   <Mouse context="close" button="2">move</Mouse>
+   <Mouse context="close" button="-3">close</Mouse>
+
+   <Mouse context="maximize" button="-1">maximize</Mouse>
+   <Mouse context="maximize" button="-2">maxv</Mouse>
+   <Mouse context="maximize" button="-3">maxh</Mouse>
+
+   <Mouse context="minimize" button="-1">minimize</Mouse>
+   <Mouse context="minimize" button="2">move</Mouse>
+   <Mouse context="minimize" button="-3">shade</Mouse>
+
+   <StartupCommand>
+	if [ -f /etc/xdg/jwm/autostart ]; then /etc/xdg/jwm/autostart;fi
+   </StartupCommand>
 
 </JWM>
+
